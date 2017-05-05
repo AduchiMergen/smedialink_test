@@ -55,5 +55,5 @@ class OrderListView(ListView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
-            return HttpResponse('Forbidden', status=401)
+            return HttpResponse('Forbidden '+request.META['REMOTE_ADDR'], status=401)
         return super(OrderListView, self).dispatch(request, *args, **kwargs)

@@ -135,12 +135,10 @@ AUTHENTICATION_BACKENDS = [
     'partymaker.backends.AuthBackend',
 ]
 
-ADMIN_IP = '127.0.0.1'
+ADMIN_IP = ['127.0.0.1', '172.17.0.1']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 ADMINS = [
     ('Admin', 'aduchimergen@gmail.com')
 ]
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
