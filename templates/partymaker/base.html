@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if user.is_superuser %}
+    <a href="{% url 'list' %}">Ответы</a>
+  {% endif %}
+{% endblock %}

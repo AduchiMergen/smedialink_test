@@ -13,9 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url
-from django.contrib import admin
+from django.contrib.auth.decorators import login_required
+from django.views.static import serve
+
+from partymaker.views import AuthView, OrderView, DeleteOrderView, OrderListView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', login_required(OrderView.as_view()), name='order'),
+    url(r'^delete/$', login_required(DeleteOrderView.as_view()), name='delete'),
+    url(r'^list/$', login_required(OrderListView.as_view()), name='list'),
+    url(r'^auth/$', AuthView.as_view(), name='auth'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve,
+            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+    ]
